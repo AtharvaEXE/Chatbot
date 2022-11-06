@@ -1,4 +1,4 @@
 pyttsx3
-speech-recognition
+speechRecognition
 wikipedia
 geopy
