@@ -1,0 +1,3 @@
+Install the required packages
+
+speech_recognition
