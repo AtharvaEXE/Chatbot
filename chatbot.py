@@ -2,17 +2,24 @@ import pyttsx3
 import wikipedia
 import speech_recognition as sr
 from geopy.geocoders import Nominatim
+import str_math
+import json
 
-def init():
-    engine = pyttsx3.init('sapi5')
+name = "IPS Chat Bot"
 
-    voices = engine.getProperty('voices')
-    engine.setProperty('voice', voices[1].id)
+engine = pyttsx3.init('sapi5')
 
-    rate = engine.getProperty('rate')
-    engine.setProperty('rate', rate - 20)
+voices = engine.getProperty('voices')
+engine.setProperty('voice', voices[1].id)
 
-    return engine
+rate = engine.getProperty('rate')
+engine.setProperty('rate', rate - 20)
+
+def jsonInit():
+    questions_file = open(r"question.json", "r")
+    questions_str = questions_file.readlines()
+    questions = json.loads(questions_str)
+    return questions
 
 def takeCommand():
     r = sr.Recognizer()
@@ -55,6 +62,7 @@ def Greet(engine, name):
     engine.say("How may I help you")
     engine.runAndWait()
 
+"""
 def GetAnswer(query):
     if 'what is your name' in query:
         return 'My name is IPS Chat Bot'
@@ -62,19 +70,24 @@ def GetAnswer(query):
         return 'I can answer your simple questions'    
     elif 'are you smart' in query or 'how smart are you in query' in query:
         return 'I am smarter than a toaster'
-    elif 'who created you' in query:
+    elif 'who created you' in query or 'who are your creaters' in query:
         return 'students of class 9 of indore public school created me as a project'
     elif 'how do you work' in query:
         return 'ask my creators'
-
-name = 'IPS Chat Bot'
-engine = init()
+    else:
+        return
+"""
 
 Greet(engine, name)
 
 while 1:
     query = takeCommand()
+    questions = jsonInit()
 
+    for questions
+
+    if query:
+        continue 
     if "what is " in query:
         query = query.replace("what is ", "")
         answer = searchWiki(query)
