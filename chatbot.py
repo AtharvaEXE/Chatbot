@@ -16,9 +16,9 @@ rate = engine.getProperty('rate')
 engine.setProperty('rate', rate - 20)
 
 def jsonInit():
-    questions_file = open(r"question.json", "r")
-    questions_str = questions_file.readlines()
-    questions = json.loads(questions_str)
+    with open('question.json', 'r') as file:
+        data = file.read().replace('\n', '')   
+        questions = json.loads(data)
     return questions
 
 def takeCommand():
@@ -78,13 +78,13 @@ def GetAnswer(query):
         return
 """
 
-Greet(engine, name)
+#Greet(engine, name)
 
-while 1:
-    query = takeCommand()
+while 1:    
     questions = jsonInit()
+    print(questions.questions[1])
 
-    for questions
+    query = takeCommand()
 
     if query:
         continue 
