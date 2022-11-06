@@ -1,5 +1,4 @@
 pyttsx3
-SpeechRecognition
-Uberi/speech_recognition
+speech_recognition
 wikipedia
 geopy
