@@ -1,6 +1,9 @@
-Install the required packages
+# IPS Chatbot
+A rule based chatbot
 
-speech_recognition
-geopy
-wikipedia
-pyttsx3
+## Required packages
+
+- speech_recognition
+- geopy
+- wikipedia
+- pyttsx3
