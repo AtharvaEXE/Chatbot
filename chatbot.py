@@ -2,17 +2,44 @@ import pyttsx3
 import wikipedia
 import speech_recognition as sr
 from geopy.geocoders import Nominatim
+import json
 
-def init():
-    engine = pyttsx3.init('sapi5')
+name = "IPS Chat Bot"
 
-    voices = engine.getProperty('voices')
-    engine.setProperty('voice', voices[1].id)
+engine = pyttsx3.init('sapi5')
 
-    rate = engine.getProperty('rate')
-    engine.setProperty('rate', rate - 20)
+voices = engine.getProperty('voices')
+engine.setProperty('voice', voices[1].id)
 
-    return engine
+rate = engine.getProperty('rate')
+engine.setProperty('rate', rate - 20)
+
+def jsonInit():
+    with open('question.json', 'r') as file:
+        data = file.read().replace('\n', '')   
+        questions = json.loads(data)
+    return questions
+
+def getAnswer(query : str, questions):
+    try:
+        answer = questions[query]
+    except:
+        if "what is " in query:
+            query = query.replace("what is ", "")
+            answer = searchWiki(query)
+    
+        elif "who is " in query:
+            query = query.replace("who is ", "")
+            answer = searchWiki(query)
+
+        elif "where is " in query:
+            query = query.replace("where is ", "")
+            answer = query + " is located at " + str(locate(query))
+
+        else:
+            answer = "i do not know about that"
+
+    return answer
 
 def takeCommand():
     r = sr.Recognizer()
@@ -49,46 +76,18 @@ def locate(place):
     return geolocator.geocode("Taj Mahal", language = "en")
 
 def Greet(engine, name):
-    engine.say("Namaste!")
     engine.say("Welcome to IPS")
     engine.say("My name is " + name)
     engine.say("How may I help you")
     engine.runAndWait()
 
-def GetAnswer(query):
-    if 'what is your name' in query:
-        return 'My name is IPS Chat Bot'
-    elif 'what can you do' in query:
-        return 'I can answer your simple questions'    
-    elif 'are you smart' in query or 'how smart are you in query' in query:
-        return 'I am smarter than a toaster'
-    elif 'who created you' in query:
-        return 'students of class 9 of indore public school created me as a project'
-    elif 'how do you work' in query:
-        return 'ask my creators'
-
-name = 'IPS Chat Bot'
-engine = init()
-
 Greet(engine, name)
+questions = jsonInit()
 
-while 1:
+while 1:    
     query = takeCommand()
-
-    if "what is " in query:
-        query = query.replace("what is ", "")
-        answer = searchWiki(query)
-    
-    if "who is " in query:
-        query = query.replace("who is ", "")
-        answer = searchWiki(query)
-
-    if "where is " in query:
-        query = query.replace("where is ", "")
-        answer = query + " is located at " + str(locate(query))
-
-    if "thank you" in query:
-        answer = "you're welcome"
+   
+    answer = getAnswer(query, questions)      
 
     engine.say(answer)
     engine.runAndWait()
