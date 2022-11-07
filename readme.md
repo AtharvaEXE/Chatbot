@@ -1,4 +1,4 @@
-# IPS Chatbot
+# Chatbot
 A rule based chatbot
 
 ## Required packages
