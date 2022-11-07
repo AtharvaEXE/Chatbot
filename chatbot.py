@@ -2,7 +2,6 @@ import pyttsx3
 import wikipedia
 import speech_recognition as sr
 from geopy.geocoders import Nominatim
-import str_math
 import json
 
 name = "IPS Chat Bot"
