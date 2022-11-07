@@ -37,9 +37,9 @@ def getAnswer(query : str, questions):
             query = query.replace("where is ", "")
             answer = query + " is located at " + str(locate(query))
 
-        elif "thank you" in query:
-            answer = "you're welcome"
-            
+        else:
+            answer = "i do not know about that"
+
     return answer
 
 def takeCommand():
