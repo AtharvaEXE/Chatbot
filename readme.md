@@ -7,5 +7,3 @@ A rule based chatbot
 - geopy
 - wikipedia
 - pyttsx3
-- word2num
-- num2word
