@@ -21,6 +21,27 @@ def jsonInit():
         questions = json.loads(data)
     return questions
 
+def getAnswer(query : str, questions):
+    try:
+        answer = questions[query]
+    except:
+        if "what is " in query:
+            query = query.replace("what is ", "")
+            answer = searchWiki(query)
+    
+        elif "who is " in query:
+            query = query.replace("who is ", "")
+            answer = searchWiki(query)
+
+        elif "where is " in query:
+            query = query.replace("where is ", "")
+            answer = query + " is located at " + str(locate(query))
+
+        elif "thank you" in query:
+            answer = "you're welcome"
+            
+    return answer
+
 def takeCommand():
     r = sr.Recognizer()
 
@@ -56,52 +77,18 @@ def locate(place):
     return geolocator.geocode("Taj Mahal", language = "en")
 
 def Greet(engine, name):
-    engine.say("Namaste!")
     engine.say("Welcome to IPS")
     engine.say("My name is " + name)
     engine.say("How may I help you")
     engine.runAndWait()
 
-"""
-def GetAnswer(query):
-    if 'what is your name' in query:
-        return 'My name is IPS Chat Bot'
-    elif 'what can you do' in query:
-        return 'I can answer your simple questions'    
-    elif 'are you smart' in query or 'how smart are you in query' in query:
-        return 'I am smarter than a toaster'
-    elif 'who created you' in query or 'who are your creaters' in query:
-        return 'students of class 9 of indore public school created me as a project'
-    elif 'how do you work' in query:
-        return 'ask my creators'
-    else:
-        return
-"""
-
-#Greet(engine, name)
+Greet(engine, name)
+questions = jsonInit()
 
 while 1:    
-    questions = jsonInit()
-    print(questions.questions[1])
-
     query = takeCommand()
-
-    if query:
-        continue 
-    if "what is " in query:
-        query = query.replace("what is ", "")
-        answer = searchWiki(query)
-    
-    if "who is " in query:
-        query = query.replace("who is ", "")
-        answer = searchWiki(query)
-
-    if "where is " in query:
-        query = query.replace("where is ", "")
-        answer = query + " is located at " + str(locate(query))
-
-    if "thank you" in query:
-        answer = "you're welcome"
+   
+    answer = getAnswer(query, questions)      
 
     engine.say(answer)
     engine.runAndWait()
