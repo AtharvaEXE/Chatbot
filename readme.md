@@ -13,7 +13,7 @@ A rule based chatbot
 ## Files [^1]
 [^1]: Files which are not mentioned are required for git and are not related to the chatbot
 
-- chatbot.py contains the most of the functionality
+- chatbot.py contains most of the functionality
 - strmath.py contains functionality for basic arithmetic
 - question.json contains common queries and their replies
 
